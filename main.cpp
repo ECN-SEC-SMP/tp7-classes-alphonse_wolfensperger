@@ -33,24 +33,35 @@ public:
     cout<<"x"<<x<<endl;
     cout<<"y"<<y<<endl;
   }
+  friend ostream& operator<<(ostream& os,  const thispoint& pt); //friend acceder aux variables privees de la classe
 
   //accesseurs
   void setx(int x)  {  this->x = x; }
   void sety(int y)  {  this->y = y; }
 };
 
+
+ostream& operator<< (ostream &os,const thispoint &pt){ //utilisation cout<<Point genere l'affichage des coordonees
+  os<<"X value "<<pt.x<<endl;
+  os<<"Y value "<<pt.y<<endl;
+  return os;
+};
+
+
 int main() {
   thispoint p(2,5);
   thispoint p2(3,3);
   thispoint p3(p2); //construction référence
-  p.print(); //avant translation
+  //p.print(); //avant translation
 
   p.translater(p2); //translation de p par p2
-  p.print(); //après translation
+  //p.print(); //après translation
 
-  p3.print();
+  //p3.print();
 
   p2.setx(9); //test d'un accesseur
-  p2.print();
+  //p2.print();
+
+  cout<<p2;
 }
 
