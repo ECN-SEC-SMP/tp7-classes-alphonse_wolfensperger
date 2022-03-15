@@ -33,7 +33,10 @@ public:
     cout<<"x"<<x<<endl;
     cout<<"y"<<y<<endl;
   }
+
   friend ostream& operator<<(ostream& os,  const thispoint& pt); //friend acceder aux variables privees de la classe
+  
+  thispoint & operator+=(const thispoint & pointtrans);
 
   //accesseurs
   void setx(int x)  {  this->x = x; }
@@ -48,20 +51,15 @@ ostream& operator<< (ostream &os,const thispoint &pt){ //utilisation cout<<Point
 };
 
 
+thispoint & thispoint::operator+=(const thispoint & pointtrans){
+  x+=pointtrans.x;
+  y+=pointtrans.y;
+  return *this;
+};
+
 int main() {
-  thispoint p(2,5);
   thispoint p2(3,3);
-  thispoint p3(p2); //construction référence
-  //p.print(); //avant translation
-
-  p.translater(p2); //translation de p par p2
-  //p.print(); //après translation
-
-  //p3.print();
-
-  p2.setx(9); //test d'un accesseur
-  //p2.print();
-
-  cout<<p2;
+  thispoint p(1,1);
+  p+=p2;
+  cout<<p;
 }
-
