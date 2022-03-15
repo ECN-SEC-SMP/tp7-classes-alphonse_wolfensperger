@@ -1,43 +1,6 @@
 #include <iostream>
+#include "thispoint.h"
 using namespace std;
-
-class thispoint {
-private :
-
-  int x;
-  int y;
-  
-  int a;
-  int b;
-public:
-  void translater(thispoint Trans){ //fonction translation
-    this->x += Trans.x;
-    this->y += Trans.y;
-  }
-
-  thispoint(void){ //constructeur initialisation origine
-    this->x = 0;
-    this->y = 0;
-  }
-
-  thispoint(int a, int b){ //constructeur à partir d'entier
-    this->x = a;
-    this->y = b;
-  }
-  
-  thispoint(thispoint const& ref_point){ //constructeur reference
-    this->x = ref_point.x;
-    this->y = ref_point.y;
-  }
-  void print(){ //affichage des points
-    cout<<"x"<<x<<endl;
-    cout<<"y"<<y<<endl;
-  }
-
-  //accesseurs
-  void setx(int x)  {  this->x = x; }
-  void sety(int y)  {  this->y = y; }
-};
 
 int main() {
   thispoint p(2,5);
