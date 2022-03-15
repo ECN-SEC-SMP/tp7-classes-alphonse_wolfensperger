@@ -39,15 +39,14 @@ public:
 
 
 int main() { 
-    //cout << "solde du compte janick : " <<  endl;
+  
   thispoint p(2,5);
   thispoint p2(3,3);
+  thispoint p3(p2); //construction référence
+  p.print(); //avant translation
 
-  p.print();
-
-  p.translater(p2);
-  
-  //p.thispoint(c,d);
-  p.print();
-  
+  p.translater(p2); //translation de p par p2
+  p.print(); //après translation
+  p2.print();
+  p3.print();
 }
