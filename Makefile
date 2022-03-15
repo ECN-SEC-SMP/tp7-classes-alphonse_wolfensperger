@@ -1,4 +1,4 @@
-machin.out : mainCompte.o
-	g++ -o machin.out  mainCompte.o
-mainCompte.0 : mainCompte.cpp
-	g++ -c mainCompte.cpp
+machin.out : main.o
+	g++ -o machin.out  main.o
+main.0 : main.cpp
+	g++ -c main.cpp
