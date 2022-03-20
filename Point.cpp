@@ -51,56 +51,52 @@ using namespace std;
   }
 
 
-  Forme::Forme(void){ //constructeur reference
-    thispoint p;
-    this->Point_centre = p;
-  }
+Forme::Forme(void){ //constructeur reference
+  thispoint p;
+  this->Point_centre = p;
+}
 
-  Forme::Forme(thispoint const& ref_point){ //constructeur reference
-    this->Point_centre.x = ref_point.x;
-    this->Point_centre.y = ref_point.y;
-  }
-/*
-    Forme& operator+=(const thispoint & pointtrans);
-    friend ostream& operator<<(ostream &os,const Forme &Fot);
+Forme::Forme(thispoint const& ref_point){ //constructeur reference
+  this->Point_centre.x = ref_point.x;
+  this->Point_centre.y = ref_point.y;
+}
 
-    Forme(void);
-
-    Forme(thispoint const& ref_point);*/
-
-  Forme&Forme ::operator+=(const thispoint& pointtrans){
-    Point_centre.x += pointtrans.x;
-    Point_centre.y += pointtrans.y;
-    return *this;
-  }
-
-  ostream& operator<<(ostream &os,const Forme &Fot){ //utilisation cout<<Point 
-    os<<"Forme X value "<<Fot.Point_centre.x<<endl;
-    os<<"Forme Y value "<<Fot.Point_centre.y<<endl;
-    return os;
-  }
+float Forme:: perimetre() {} //méthodes abstraites
+float Forme:: surface() {}
 
 
-   Cercle:: Cercle(void){ 
-      Forme f;
-      this->formeCercle = f;
-      this->rayon=1;
- 		}
+Forme&Forme ::operator+=(const thispoint& pointtrans){
+  Point_centre.x += pointtrans.x;
+  Point_centre.y += pointtrans.y;
+  return *this;
+}
+
+ostream& operator<<(ostream &os,const Forme &Fot){ //utilisation cout<<Point 
+  os<<"Forme X value "<<Fot.Point_centre.x<<endl;
+  os<<"Forme Y value "<<Fot.Point_centre.y<<endl;
+  return os;
+}
+
+
+//***********************FORME CERCLE******************************//
+Cercle:: Cercle(void){ 
+  Forme f;
+  this->formeCercle = f;
+  this->rayon=1;
+}
     
-   Cercle:: Cercle(Forme const&ref_forme, int r){ 
-    	/*this->frm_Cercle.Point_centre.x = ref_forme.Point_centre.x;
-      this->frm_Cercle.Point_centre.y = ref_forme.Point_centre.y;*/
-      this->formeCercle = ref_forme;
-      this->rayon=r;
- 		}
+Cercle:: Cercle(Forme const&ref_forme, int r){ 
+  this->formeCercle = ref_forme;
+  this->rayon=r;
+}
 
-    /*float perimetre(void) override {
-      return 2*PI*this->rayon;
-    }
+float Cercle::perimetre(void){
+  return 2*PI*this->rayon;
+}
 
-    float surface(void) override {
-      return PI*((this->rayon)^2);
-    }*/
+float Cercle::surface(void) {
+  return PI*((this->rayon)^2);
+}
 
 ostream& operator<<(ostream &os,const Cercle &Cet){ //utilisation cout<<Point 
   os<<"Centre cercle X value "<<Cet.formeCercle.Point_centre.x<<endl;
@@ -110,12 +106,92 @@ ostream& operator<<(ostream &os,const Cercle &Cet){ //utilisation cout<<Point
 }
 
 //***********************FORME RECTANGLE******************************//
+Rectangle:: Rectangle(void){ 
+  Forme f;
+  this->formeRectangle = f;
+  this->largeur=1;
+  this->hauteur=1;
+}
+    
+Rectangle:: Rectangle(Forme const&ref_forme, int largeur, int hauteur){ 
+  this->formeRectangle = ref_forme;
+  this->largeur=largeur;
+  this->hauteur=hauteur;
+}
 
+float Rectangle::perimetre(void){
+  return (2*this->largeur)+(2*this->hauteur);
+}
+
+float Rectangle::surface(void) {
+  return (this->largeur)*(this->hauteur);
+}
+
+ostream& operator<<(ostream &os,const Rectangle &Ret){ //utilisation cout<<Rectangle
+  os<<"Centre Rectangle X value "<<Ret.formeRectangle.Point_centre.x<<endl;
+  os<<"Centre Rectangle y value "<<Ret.formeRectangle.Point_centre.y<<endl;
+  os<<"Rectangle largeur value "<<Ret.largeur<<endl;
+  os<<"Rectangle hauteur value "<<Ret.hauteur<<endl;
+  return os;
+}
 
 //***********************FORME CARRE*********************************//
+Carre:: Carre(void){ 
+  Rectangle r;
+  this->rectCarre = r;
+}
+    
+Carre:: Carre(Forme const&ref_forme, int cote){ 
+  this->rectCarre.formeRectangle = ref_forme;
+  this->rectCarre.largeur=cote;
+  this->rectCarre.hauteur=cote;
+}
+
+float Carre::perimetre(void){
+  return (4*this->rectCarre.largeur);
+}
+
+float Carre::surface(void) {
+  return this->rectCarre.largeur*this->rectCarre.largeur;
+}
+
+ostream& operator<<(ostream &os,const Carre &Cat){ //utilisation cout<<Carre 
+  os<<"Centre Carré X value "<<Cat.rectCarre.formeRectangle.Point_centre.x<<endl;
+  os<<"Centre Carré y value "<<Cat.rectCarre.formeRectangle.Point_centre.y<<endl;
+  os<<"Carré côté value "<<Cat.rectCarre.largeur<<endl;
+  return os;
+}
+
 
 int main() {
-  Cercle c;
+  //test Carre:
+  Carre ca;
+  
+  thispoint p(3,4);
+  Forme f(p);
+  Carre ca2(f,5);
+
+  cout<<ca<<endl;
+  cout<<ca2;
+
+  cout<<"perimetre de ca2 :"<<ca2.perimetre()<<endl;
+  cout<<"surface de ca2 :"<<ca2.surface()<<endl;
+  
+  //test rectangle:
+  /*Rectangle r;
+  
+  thispoint p(3,4);
+  Forme f(p);
+  Rectangle r2(f,5,10);
+
+  cout<<r<<endl;
+  cout<<r2;
+
+  cout<<"perimetre de r2 :"<<r2.perimetre()<<endl;
+  cout<<"surface de r2 :"<<r2.surface()<<endl;*/
+  
+  //test cercle:
+  /*Cercle c;
   
   thispoint p(3,4);
   Forme f(p);
@@ -123,4 +199,7 @@ int main() {
 
   cout<<c<<endl;
   cout<<c2;
+
+  cout<<"perimetre de c2 :"<<c2.perimetre()<<endl;
+  cout<<"surface de c2 :"<<c2.surface()<<endl;*/
 }
