@@ -1,4 +1,5 @@
 #include <iostream>
+#define PI 3.14
 using namespace std;
 
 class thispoint {
@@ -62,6 +63,7 @@ class Forme {
     //méthodes abstraites
     void perimetre(Forme Point_centre);
     void surface(Forme Point_centre);
+  
 
     Forme& operator+=(const thispoint & pointtrans);
     friend ostream& operator<<(ostream &os,const Forme &Fot);
@@ -93,39 +95,47 @@ ostream& operator<<(ostream &os,const Forme &Fot){ //utilisation cout<<Point
 //Classe hérité de forme auquel on ajoute des paramètres// Voir les classes hérités
 class Cercle {
 	private :
-    Forme frm_Cercle;
-    int rayon;
+    
 	public :
+    Forme formeCercle;
+    int rayon;
 
     friend ostream& operator<<(ostream &os,const Cercle &Cet);
 
     Cercle(void){ 
       Forme f;
-      this->frm_Cercle = f;
+      this->formeCercle = f;
       this->rayon=1;
  		}
     
     Cercle(Forme const&ref_forme, int r){ 
     	/*this->frm_Cercle.Point_centre.x = ref_forme.Point_centre.x;
       this->frm_Cercle.Point_centre.y = ref_forme.Point_centre.y;*/
-      this->frm_Cercle = ref_forme;
+      this->formeCercle = ref_forme;
       this->rayon=r;
  		}
+
+    /*float perimetre(void) override {
+      return 2*PI*this->rayon;
+    }
+
+    float surface(void) override {
+      return PI*((this->rayon)^2);
+    }*/
 
 };
 
 ostream& operator<<(ostream &os,const Cercle &Cet){ //utilisation cout<<Point 
-  os<<"Centre cercle X value "<<Cet.frm_Cercle.Point_centre.x<<endl;
-  os<<"Centre cercle y value "<<Cet.frm_Cercle.Point_centre.y<<endl;
+  os<<"Centre cercle X value "<<Cet.formeCercle.Point_centre.x<<endl;
+  os<<"Centre cercle y value "<<Cet.formeCercle.Point_centre.y<<endl;
   os<<"Cercle rayon value "<<Cet.rayon<<endl;
   return os;
 };
 
 //***********************FORME RECTANGLE******************************//
 
-//***********************FORME CARRE******************************//
 
-
+//***********************FORME CARRE*********************************//
 
 int main() {
   Cercle c;
