@@ -1,4 +1,4 @@
-machin.out : main.o
-	g++ -o machin.out  main.o
-main.0 : main.cpp
-	g++ -c main.cpp
+machin.out : Point.o
+	g++ -o machin.out  Point.o
+Point.0 : Point.cpp
+	g++ -c Point.cpp
